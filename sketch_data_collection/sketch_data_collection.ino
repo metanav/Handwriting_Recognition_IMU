@@ -5,8 +5,7 @@
 #include "ICM_20948.h"
 
 #define MECH_CAP_BUTTON_PIN 36
-#define TAG_BUTTON_START 201
-#define TAG_BUTTON_STOP  202
+#define TAG_BUTTON_CANCEL 201
 #define AD0_VAL   1
 
 ICM_20948_I2C myICM;
@@ -14,12 +13,12 @@ SdFat sd;
 SdFile file;
 
 char message1[10];
-char message2[20];
-char filename[20];
+char message2[30];
+char filename[50];
 char digit = 48;
-char action = 0;
+bool cancel = false;
 int  count = 0;
-int  file_count = 0;
+int  file_count;
 String buf;
 
 void touchscreen_get_input() {
@@ -31,52 +30,31 @@ void touchscreen_get_input() {
   }
 
   switch (GD.inputs.tag) {
-    case TAG_BUTTON_START:
-      action = 1;
+    case TAG_BUTTON_CANCEL:
+      cancel = true;
       break;
-    case TAG_BUTTON_STOP:
-      action = 0;
-      break;
+    default:
+      cancel = false;
   }
 
   sprintf(message1, "Digit: %c", digit);
 
   GD.cmd_gradient(0, 0, 0x404044, 480, 480, 0x606068);
   GD.ColorRGB(0x707070);
-
   GD.LineWidth(4 * 16);
   GD.Begin(RECTS);
-
   GD.Vertex2ii(350, 8);
   GD.Vertex2ii(350 + 120, 128);
-
-  GD.Vertex2ii(350, 136 + 8);
-  GD.Vertex2ii(350 + 120, 136 + 128);
-
   GD.Vertex2ii(8, 136 + 8);
-  GD.Vertex2ii(320, 136 + 128);
-
+  GD.Vertex2ii(350 + 120, 136 + 128);
   GD.ColorRGB(0xffffff);
-
-  GD.Tag(TAG_BUTTON_START);
-  GD.cmd_button(350, 8, 120, 120, 29, 0,  "START");
-
-  GD.Tag(TAG_BUTTON_STOP);
-  GD.cmd_button(350, 144, 120, 120, 29, 0,  "STOP");
-
-  GD.cmd_keys(8, 185, 300, 40, 30, 0 | OPT_CENTER | key, "0123456789");
-
+  GD.Tag(TAG_BUTTON_CANCEL);
+  GD.cmd_button(350, 8, 120, 120, 29, 0,  "CANCEL");
+  GD.cmd_keys(8, 185, 450, 50, 31, 0 | OPT_CENTER | digit, "0123456789");
   GD.cmd_text(8, 10, 31, 0, message1);
-
-  if (action == 1) {
-    GD.ColorRGB(0x00ffee);
-  } else {
-    GD.ColorRGB(0xffffff);
-  }
+  GD.ColorRGB(0xffffff);
   GD.cmd_text(8, 60, 31, 0, message2);
-
   GD.BlendFunc(SRC_ALPHA, ZERO);
-
   GD.swap();
 }
 
@@ -109,25 +87,33 @@ void setup()
 
   enableBurstMode();
 
-//  ICM_20948_smplrt_t mySmplrt;
-//  mySmplrt.g = 21; // 50 Hz, 1.1 kHz/(1+GYRO_SMPLRT_DIV[7:0])
-//  myICM.setSampleRate( ICM_20948_Internal_Gyr, mySmplrt );
+  //  ICM_20948_smplrt_t mySmplrt;
+  //  mySmplrt.g = 21; // 50 Hz, 1.1 kHz/(1+GYRO_SMPLRT_DIV[7:0])
+  //  myICM.setSampleRate( ICM_20948_Internal_Gyr, mySmplrt );
   Serial.println(myICM.statusString());
   myICM.enableDLPF( ICM_20948_Internal_Acc, true );
   myICM.enableDLPF( ICM_20948_Internal_Gyr, true );
   delay(100);
 
-  if (!sd.begin(A12, SD_SCK_MHZ(10))) {
+  if (!sd.begin(A12, SD_SCK_MHZ(20))) {
     sd.initErrorHalt();
   }
 
   GD.begin(~GD_STORAGE);
+
+  EEPROM.get(0, file_count);
+  if (file_count < 0 || file_count > 10000) {
+    file_count = 0;
+    EEPROM.put(0, file_count);
+  }
+  
   
 }
 
 void loop()
 {
   touchscreen_get_input();
+
   bool mech_cap_btn_status = digitalRead(MECH_CAP_BUTTON_PIN);
 
   if (mech_cap_btn_status == HIGH) {
@@ -169,23 +155,36 @@ void loop()
       GD.__end();
 
       Serial.println(message2);
-      file_count++;
+      EEPROM.get(0, file_count);
+      
       sprintf(filename, "readings_%d_digit_%c.csv", file_count, digit);
-//
-//      if (!file.open(filename, O_WRONLY | O_CREAT | O_EXCL )) {
-//        sd.errorHalt(filename);
-//      }
-//      file.print(buf);
-//      file.close();
 
-     Serial.print(buf);
+      if (!file.open(filename, O_WRONLY | O_CREAT | O_EXCL )) {
+        sd.errorHalt(filename);
+      }
+
+      file.print(buf);
+      file.close();
+      //Serial.print(buf);
 
       Serial.print("Saved to: ");
       Serial.println(filename);
+      
+      file_count++;
+      EEPROM.put(0, file_count);
 
       GD.resume();
 
       count = 0;
     }
   }
+
+  if (cancel == true) {
+    if (sd.remove(filename)) {
+      strcpy(message2, "Status: deleted.");
+    } else {
+      Serial.print("Error: cannot delete "); Serial.println(filename);
+    }
+  }
+
 }
