@@ -12,14 +12,15 @@ ICM_20948_I2C myICM;
 SdFat sd;
 SdFile file;
 
-char message1[10];
+char message1[30];
 char message2[30];
 char filename[50];
 char digit = 48;
 bool cancel = false;
-int  count = 0;
+int  samples = 0;
 int  file_count;
 String buf;
+int examples_count[10] = {0};
 
 void touchscreen_get_input() {
   GD.get_inputs();
@@ -37,7 +38,7 @@ void touchscreen_get_input() {
       cancel = false;
   }
 
-  sprintf(message1, "Digit: %c", digit);
+  sprintf(message1, "Digit: %c Count=%d", digit, examples_count[digit -'0']);
 
   GD.cmd_gradient(0, 0, 0x404044, 480, 480, 0x606068);
   GD.ColorRGB(0x707070);
@@ -117,13 +118,13 @@ void loop()
   bool mech_cap_btn_status = digitalRead(MECH_CAP_BUTTON_PIN);
 
   if (mech_cap_btn_status == HIGH) {
-    if (count == 0) {
+    if (samples == 0) {
       strcpy(message2, "Status: Started");
       Serial.println(message2);
       buf = "";
     }
 
-    if ( myICM.dataReady()) {
+    if ( myICM.dataReady() ) {
       myICM.getAGMT();
       //Serial.printf( "%04.2f\t%04.2f\t%04.2f\n", myICM.accX(), myICM.accY(), myICM.accZ() );
       buf += String(myICM.accX(), 2);
@@ -139,7 +140,7 @@ void loop()
       buf += String(myICM.gyrZ(), 2);
       buf += F("\n");
 
-      count++;
+      samples++;
 
       delay(30);
     } else {
@@ -149,7 +150,7 @@ void loop()
   }
 
   if (mech_cap_btn_status == LOW) {
-    if (count > 0) {
+    if (samples > 0) {
       strcpy(message2, "Status: Stopped");
 
       GD.__end();
@@ -175,13 +176,15 @@ void loop()
 
       GD.resume();
 
-      count = 0;
+      samples = 0;
+      examples_count[digit -'0']++;
     }
   }
 
   if (cancel == true) {
     if (sd.remove(filename)) {
       strcpy(message2, "Status: deleted.");
+      examples_count[digit -'0']--;
     } else {
       Serial.print("Error: cannot delete "); Serial.println(filename);
     }
