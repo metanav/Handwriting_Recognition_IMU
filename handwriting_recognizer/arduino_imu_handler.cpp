@@ -13,7 +13,7 @@
   limitations under the License.
   ==============================================================================*/
 
-#include "accelerometer_handler.h"
+#include "imu_handler.h"
 
 #include <Arduino.h>
 #include "ICM_20948.h"
@@ -34,7 +34,7 @@ int sample_every_n;
 // The number of measurements since we last saved one
 int sample_skip_counter = 1;
 
-TfLiteStatus SetupAccelerometer(tflite::ErrorReporter* error_reporter) {
+TfLiteStatus InitIMU(tflite::ErrorReporter* error_reporter) {
   // Wait until we know the serial port is ready
   while (!Serial) {
   }
@@ -78,7 +78,7 @@ TfLiteStatus SetupAccelerometer(tflite::ErrorReporter* error_reporter) {
   return kTfLiteOk;
 }
 
-bool ReadAccelerometer(tflite::ErrorReporter* error_reporter, float* input, int length, bool reset_buffer) {
+bool ReadIMU(tflite::ErrorReporter* error_reporter, float* input, int length, bool reset_buffer) {
   // Clear the buffer if required, e.g. after a successful prediction
   if (reset_buffer) {
     memset(save_data, 0, 600 * sizeof(float));

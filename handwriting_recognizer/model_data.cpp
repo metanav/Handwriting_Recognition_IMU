@@ -17,7 +17,7 @@ limitations under the License.
 // xxd -i magic_wand_model.tflite > magic_wand_model_data.cc
 // See the README for a full description of the creation process.
 
-#include "magic_wand_model_data.h"
+#include "model_data.h"
 
 // We need to keep the data array aligned on some architectures.
 #ifdef __has_attribute

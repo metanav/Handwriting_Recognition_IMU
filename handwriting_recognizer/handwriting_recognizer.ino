@@ -1,3 +1,4 @@
+
 /* Copyright 2019 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +18,9 @@ limitations under the License.
 
 #include "main_functions.h"
 
-#include "accelerometer_handler.h"
-#include "gesture_predictor.h"
-#include "magic_wand_model_data.h"
+#include "imu_handler.h"
+#include "handwriting_predictor.h"
+#include "model_data.h"
 #include "output_handler.h"
 #include "tensorflow/lite/experimental/micro/kernels/micro_ops.h"
 #include "tensorflow/lite/experimental/micro/micro_error_reporter.h"
@@ -105,15 +106,15 @@ void setup() {
 
   input_length = model_input->bytes / sizeof(float);
 
-  TfLiteStatus setup_status = SetupAccelerometer(error_reporter);
+  TfLiteStatus setup_status = InitIMU(error_reporter);
   if (setup_status != kTfLiteOk) {
     error_reporter->Report("Set up failed\n");
   }
 }
 
 void loop() {
-  // Attempt to read new data from the accelerometer
-  bool got_data = ReadAccelerometer(error_reporter, model_input->data.f,
+  // Attempt to read new data from the IMU
+  bool got_data = ReadIMU(error_reporter, model_input->data.f,
                                     input_length, should_clear_buffer);
   // Don't try to clear the buffer again
   should_clear_buffer = false;
