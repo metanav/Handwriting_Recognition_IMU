@@ -147,5 +147,5 @@ void loop() {
   // Clear the buffer next time we read data
   should_clear_buffer = gesture_index < -1;
   // Produce an output
-  //HandleOutput(error_reporter, gesture_index);
+  HandleOutput(error_reporter, gesture_index);
 }
