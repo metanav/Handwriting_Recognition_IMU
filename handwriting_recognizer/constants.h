@@ -13,12 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_CONSTANTS_H_
-#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_CONSTANTS_H_
+#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_CONSTANTS_H_
+#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_CONSTANTS_H_
 
 // The expected accelerometer data sample frequency
 const float kTargetHz = 25;
 
 // The number of expected consecutive inferences for each gesture type
-extern const int kConsecutiveInferenceThresholds[3];
-#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_CONSTANTS_H_
+extern const int kConsecutiveInferenceThresholds[10];
+#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_CONSTANTS_H_

@@ -16,5 +16,5 @@ limitations under the License.
 #include "constants.h"
 
 // The number of expected consecutive inferences for each gesture type.
-// Established with the Arduino Nano 33 BLE Sense.
-const int kConsecutiveInferenceThresholds[3] = {8, 5, 4};
+// Established with the Artemis ATP + ICM 20948 qwiic.
+const int kConsecutiveInferenceThresholds[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};

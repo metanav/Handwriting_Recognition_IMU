@@ -23,16 +23,12 @@
 
 ICM_20948_I2C myICM;
 
-// A buffer holding the last 200 sets of 3-channel values
+// A buffer holding the last 100 sets of 6-channel values
 float save_data[600] = {0.0};
 // Most recent position in the save_data buffer
 int begin_index = 0;
 // True if there is not yet enough data to run inference
 bool pending_initial_data = true;
-// How often we should save a measurement during downsampling
-int sample_every_n;
-// The number of measurements since we last saved one
-int sample_skip_counter = 1;
 
 TfLiteStatus InitIMU(tflite::ErrorReporter* error_reporter) {
   // Wait until we know the serial port is ready
@@ -50,31 +46,37 @@ TfLiteStatus InitIMU(tflite::ErrorReporter* error_reporter) {
   }
 
   error_reporter->Report( myICM.statusString() );
-  enableBurstMode();
 
+  enableBurstMode();
 
   ICM_20948_smplrt_t mySmplrt;
   mySmplrt.g = 43; // 25 Hz
   myICM.setSampleRate( ICM_20948_Internal_Gyr, mySmplrt );
   Serial.println(myICM.statusString());
+   
+  // enable low pass filter
+  myICM.enableDLPF( ICM_20948_Internal_Acc, true );
+  myICM.enableDLPF( ICM_20948_Internal_Gyr, true );
 
-  ICM_20948_Status_e accDLPEnableStat = myICM.enableDLPF( ICM_20948_Internal_Acc, true );
-  ICM_20948_Status_e gyrDLPEnableStat = myICM.enableDLPF( ICM_20948_Internal_Gyr, true );
-
+  // disable fifo at the beginning, later enable it
   myICM.enableFifo(false);
   myICM.setFifoCfg();
+
+  // reset fifo
   myICM.resetFifo(0x1f);
   myICM.enableFifoSlv(false);
   myICM.enableFifoAGT(false);
-  delay(100);
+  delay(10);
   myICM.cleanupFifo();
   myICM.resetFifo(0x00);
+
+  // enable fifo
   myICM.enableFifoAGT(true);
   myICM.setFifoMode(true);
   myICM.enableFifo(true);
 
-  error_reporter->Report("Magic starts!");
-
+  error_reporter->Report("IMU Initialized");
+  delay(100);
   return kTfLiteOk;
 }
 
@@ -86,28 +88,41 @@ bool ReadIMU(tflite::ErrorReporter* error_reporter, float* input, int length, bo
     pending_initial_data = true;
   }
 
-  myICM.getAGMT();
-  float x = myICM.accX();
-  float y = myICM.accY();
-  float z = myICM.accZ();
-  //Serial.printf("%f, %f, %f\n", x, y, z);
+  int fifo_count = myICM.getFifoCount();
+  int samples  =  fifo_count/14;
+  Serial.printf("samples=%d\n", samples);
+  if (samples == 0) {
+    return false;
+  }
+  for (int i = 0; i < samples; i++) {
+    myICM.getAGMT(true); // pass true to get data from FIFO
 
-  // Write samples to our buffer, converting to milli-Gs
-  // and flipping y and x order for compatibility with
-  // model (sensor orientation is different on Arduino
-  // Nano BLE Sense compared with SparkFun Edge)
-  save_data[begin_index++] = x * 1000;
-  save_data[begin_index++] = y * 1000;
-  save_data[begin_index++] = z * 1000;
+    float ax = myICM.accX();
+    float ay = myICM.accY();
+    float az = myICM.accZ();
+    float gx = myICM.gyrX();
+    float gy = myICM.gyrY();
+    float gz = myICM.gyrZ();
+    //Serial.printf("[%f, %f, %f,%f, %f, %f]\n", ax, ay, az, gx, gy, gz);
 
-  // If we reached the end of the circle buffer, reset
-  if (begin_index >= 600) {
-    begin_index = 0;
+    // Write samples to  buffer
+    save_data[begin_index++] = ax;
+    save_data[begin_index++] = ay;
+    save_data[begin_index++] = az;
+    save_data[begin_index++] = gx;
+    save_data[begin_index++] = gy;
+    save_data[begin_index++] = gz;
+
+    // If we reached the end of the circle buffer, reset
+    if (begin_index >= 600) {
+      begin_index = 0;
+    }
+
+   // delay(1);
   }
 
-
   // Check if we are ready for prediction or still pending more initial data
-  if (pending_initial_data && begin_index >= 200) {
+  if (pending_initial_data && begin_index >= 216) {
     pending_initial_data = false;
   }
 
@@ -116,13 +131,24 @@ bool ReadIMU(tflite::ErrorReporter* error_reporter, float* input, int length, bo
     return false;
   }
 
+  //Serial.printf("begin_index=%d\n", begin_index);
+
   // Copy the requested number of bytes to the provided input tensor
   for (int i = 0; i < length; ++i) {
     int ring_array_index = begin_index + i - length;
     if (ring_array_index < 0) {
       ring_array_index += 600;
     }
+    
     input[i] = save_data[ring_array_index];
+    
+//    Serial.print(input[i]);
+//    
+//    if ( (i + 1) % 6 == 0 ) {
+//       Serial.println("");
+//    } else {
+//      Serial.print(", ");
+//    }
   }
 
   return true;

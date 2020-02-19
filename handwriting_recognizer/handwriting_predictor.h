@@ -13,9 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_GESTURE_PREDICTOR_H_
-#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_GESTURE_PREDICTOR_H_
+#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_PREDICTOR_H_
+#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_PREDICTOR_H_
 
 extern int PredictGesture(float* output);
 
-#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_GESTURE_PREDICTOR_H_
+#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_PREDICTOR_H_

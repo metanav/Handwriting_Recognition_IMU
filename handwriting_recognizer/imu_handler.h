@@ -13,10 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_ACCELEROMETER_HANDLER_H_
-#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_ACCELEROMETER_HANDLER_H_
+#ifndef TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_IMU_HANDLER_H_
+#define TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_IMU_HANDLER_H_
 
-#define kChannelNumber 3
+#define kChannelNumber 6
 
 #include "tensorflow/lite/c/c_api_internal.h"
 #include "tensorflow/lite/experimental/micro/micro_error_reporter.h"
@@ -26,4 +26,4 @@ extern TfLiteStatus InitIMU(tflite::ErrorReporter* error_reporter);
 extern bool ReadIMU(tflite::ErrorReporter* error_reporter,
                               float* input, int length, bool reset_buffer);
 
-#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_MAGIC_WAND_ACCELEROMETER_HANDLER_H_
+#endif  // TENSORFLOW_LITE_EXPERIMENTAL_MICRO_EXAMPLES_IMU_HANDLER_H_

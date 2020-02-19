@@ -14,7 +14,6 @@ limitations under the License.
 ==============================================================================*/
 
 #include "output_handler.h"
-
 #include "Arduino.h"
 
 void HandleOutput(tflite::ErrorReporter* error_reporter, int kind) {
@@ -32,20 +31,5 @@ void HandleOutput(tflite::ErrorReporter* error_reporter, int kind) {
   } else {
     digitalWrite(LED_BUILTIN, LOW);
   }
-  // Print some ASCII art for each gesture
-  if (kind == 0) {
-    error_reporter->Report(
-        "WING:\n\r*         *         *\n\r *       * *       "
-        "*\n\r  *     *   *     *\n\r   *   *     *   *\n\r    * *       "
-        "* *\n\r     *         *\n\r");
-  } else if (kind == 1) {
-    error_reporter->Report(
-        "RING:\n\r          *\n\r       *     *\n\r     *         *\n\r "
-        "   *           *\n\r     *         *\n\r       *     *\n\r      "
-        "    *\n\r");
-  } else if (kind == 2) {
-    error_reporter->Report(
-        "SLOPE:\n\r        *\n\r       *\n\r      *\n\r     *\n\r    "
-        "*\n\r   *\n\r  *\n\r * * * * * * * *\n\r");
-  }
+   error_reporter->Report("%d", kind);
 }
