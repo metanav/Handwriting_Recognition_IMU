@@ -12,5 +12,8 @@
 2. [TensorFlow 2.1](https://www.tensorflow.org/install)
 3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary)
 4. [Jupyter](https://jupyter.org/install)
+5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
+
+
 
 
