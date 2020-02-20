@@ -17,6 +17,8 @@ In this project, I build a pen device which can be used to recognize handwritten
 5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
 
 Please see the links above for downloading and installation instructions.
+Please see the instructions [here](https://learn.sparkfun.com/tutorials/artemis-development-with-arduino) to setup Artemis ATP board with Arduino IDE.
+
 
 ## Data Collection
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
