@@ -12,7 +12,7 @@ In this project, I build a pen device which can be used to recognize handwritten
 ## Required Softwares and Libraries
 1. [Arduino IDE 1.8.12](https://www.arduino.cc/en/Main/Software)
 2. [TensorFlow 2.1](https://www.tensorflow.org/install)
-3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary)
+3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary) (A forked of the original library with FIFO implementation)
 4. [Jupyter](https://jupyter.org/install)
 5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
 
