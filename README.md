@@ -1,11 +1,11 @@
 # Handwriting Recognition
 
 ## Required Hardware Component
-1. Sparkfun Artemis ATP
-2. SparkFun 9DoF IMU Breakout - ICM-20948 (Qwiic)
-3. SparkFun Qwiic Cable - 500mm
-4. Seeed Grove - Mech Keycap
-5. Gameduino 3
+1. [Sparkfun Artemis ATP](https://www.sparkfun.com/products/15442)
+2. [SparkFun 9DoF IMU Breakout - ICM-20948 (Qwiic)](https://www.sparkfun.com/products/15335)
+3. [SparkFun Qwiic Cable - 500mm](https://www.sparkfun.com/products/14429)
+4. [Seeed Grove - Mech Keycap](https://www.seeedstudio.com/Grove-Mech-Keycap.html)
+5. [Gameduino 3](https://excamera.com/sphinx/gameduino3/index.html)
 
 ## Required Softwares and Libraries
 1. [Arduino IDE 1.8.12](https://www.arduino.cc/en/Main/Software)
