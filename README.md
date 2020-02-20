@@ -1,4 +1,5 @@
 # Handwriting Recognition
+In this project, I build a pen device which can be used to recognize handwritten numerals. As its input, it takes multidimensional accelerometer and gyroscope sensor data. Its output will be a simple classification that notifies us if one of several classes of movements, in this case 0 to 9 digit, has recently occurred.
 
 ## Required Hardware Component
 1. [Sparkfun Artemis ATP](https://www.sparkfun.com/products/15442)
