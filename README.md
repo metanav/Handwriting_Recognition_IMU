@@ -14,6 +14,7 @@
 4. [Jupyter](https://jupyter.org/install)
 5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
 
-
+## Data Collection
+Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
 
 
