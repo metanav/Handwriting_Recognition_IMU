@@ -1,7 +1,7 @@
 # Handwriting Recognition
 In this project, I build a pen device which can be used to recognize handwritten numerals. As its input, it takes multidimensional accelerometer and gyroscope sensor data. Its output will be a simple classification that notifies us if one of several classes of movements, in this case 0 to 9 digit, has recently occurred.
 
-## Required Hardware Component
+## Required Hardware Components
 1. [Sparkfun Artemis ATP](https://www.sparkfun.com/products/15442)
 2. [SparkFun 9DoF IMU Breakout - ICM-20948 (Qwiic)](https://www.sparkfun.com/products/15335)
 3. [SparkFun Qwiic Cable - 500mm](https://www.sparkfun.com/products/14429)
@@ -15,6 +15,8 @@ In this project, I build a pen device which can be used to recognize handwritten
 3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary)
 4. [Jupyter](https://jupyter.org/install)
 5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
+
+Please see the links above for downloading and installation instructions.
 
 ## Data Collection
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
