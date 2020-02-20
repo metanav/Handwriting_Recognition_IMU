@@ -17,4 +17,12 @@
 ## Data Collection
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
 
+## Training
+Use []()
+
+## Inferencing
+Use [handwriting_recognizer.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/handwriting_recognizer) to recognize handwritten numerals from the data coming from IMU sensor motion.
+
+
+
 
