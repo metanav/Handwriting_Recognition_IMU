@@ -6,6 +6,7 @@
 3. [SparkFun Qwiic Cable - 500mm](https://www.sparkfun.com/products/14429)
 4. [Seeed Grove - Mech Keycap](https://www.seeedstudio.com/Grove-Mech-Keycap.html)
 5. [Gameduino 3](https://excamera.com/sphinx/gameduino3/index.html)
+6. Micro SD card
 
 ## Required Softwares and Libraries
 1. [Arduino IDE 1.8.12](https://www.arduino.cc/en/Main/Software)
