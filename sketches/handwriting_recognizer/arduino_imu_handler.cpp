@@ -89,11 +89,12 @@ bool ReadIMU(tflite::ErrorReporter* error_reporter, float* input, int length, bo
   }
 
   int fifo_count = myICM.getFifoCount();
-  int samples  =  fifo_count/14;
-  //Serial.printf("samples=%d\n", samples);
+  int samples    =  fifo_count / 14; // 6 (acc) + 6 (gyr)  + 2 (temp)
+
   if (samples == 0) {
     return false;
   }
+
   for (int i = 0; i < samples; i++) {
     myICM.getAGMT(true); // pass true to get data from FIFO
 
