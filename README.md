@@ -24,6 +24,7 @@ The Gameduino 3 does not work out of the box with Artemis ATP. We need to do few
 Please download Gameduino2.zip from https://github.com/metanav/gd2-lib.
 Also, we need to add pin definition for A32, please see the pull request https://github.com/sparkfun/Arduino_Apollo3/pull/129.
 To connect the Gameduino 3 shield, align the longer header pins on the shield to the Artemis ATP RX1->TX1 ... GND->GND as shown in the image below.
+
 ![Aetemis ATP with Gameduino 3](images/artemis_atp_gameduino3.jpeg)
 
 ## Data Collection
