@@ -90,7 +90,7 @@ bool ReadIMU(tflite::ErrorReporter* error_reporter, float* input, int length, bo
 
   int fifo_count = myICM.getFifoCount();
   int samples  =  fifo_count/14;
-  Serial.printf("samples=%d\n", samples);
+  //Serial.printf("samples=%d\n", samples);
   if (samples == 0) {
     return false;
   }

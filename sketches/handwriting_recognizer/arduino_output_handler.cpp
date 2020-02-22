@@ -29,12 +29,12 @@ void HandleOutput(tflite::ErrorReporter* error_reporter, int kind) {
     error_reporter->Report("Begin GD\n");
   }
 
-  error_reporter->Report("%d", kind);
+  //error_reporter->Report("%d", kind);
   
   char str[8];
   
   if (kind == -1) {
-    strcpy(str, "???");
+    strcpy(str, "...");
   } else {
     sprintf(str, "%d", kind);
   }

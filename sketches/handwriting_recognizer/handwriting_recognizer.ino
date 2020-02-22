@@ -123,25 +123,22 @@ void loop() {
   // If there was no new data, wait until next time
   if (!got_data) return;
   // Run inference, and report any error
-  //Serial.println("Inference start");
-
   TfLiteStatus invoke_status = interpreter->Invoke();
   if (invoke_status != kTfLiteOk) {
     error_reporter->Report("Invoke failed on index: %d\n", begin_index);
     return;
   }
 
-  //Serial.println("Inference finish");
-
   // Analyze the results to obtain a prediction
   int gesture_index = PredictGesture(interpreter->output(0)->data.f);
 
   if (gesture_index > -1) {
+    error_reporter->Report("Predicted class: %d", gesture_index);
+    error_reporter->Report("Output class probabilities:");
     for (uint8_t i = 0;  i < 10; i++) {
       Serial.printf("%d: %f\n", i, interpreter->output(0)->data.f[i]);
     }
-   Serial.println(gesture_index);
-  Serial.println("");
+    error_reporter->Report("------------------------------------");
   }
 
   // Clear the buffer next time we read data

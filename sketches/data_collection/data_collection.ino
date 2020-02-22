@@ -126,7 +126,7 @@ void loop()
 
     if ( myICM.dataReady() ) {
       myICM.getAGMT();
-      //Serial.printf( "%04.2f\t%04.2f\t%04.2f\n", myICM.accX(), myICM.accY(), myICM.accZ() );
+      Serial.printf( "%04.2f\t%04.2f\t%04.2f\n", myICM.accX(), myICM.accY(), myICM.accZ() );
       buf += String(myICM.accX(), 2);
       buf += F(",");
       buf += String(myICM.accY(), 2);
@@ -151,7 +151,7 @@ void loop()
 
   if (mech_cap_btn_status == LOW) {
     if (samples > 0) {
-      strcpy(message2, "Status: Stopped");
+      strcpy(message2, "Status: Saved");
 
       GD.__end();
 
