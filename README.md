@@ -28,6 +28,10 @@ To connect the Gameduino 3 shield, align the longer header pins on the shield to
 ![Aetemis ATP with Gameduino 3](images/artemis_atp_gameduino3.jpeg)
 
 ## Data Collection
+We need to connect Grove Mech Keycap (mechenical switch) to the Artemis ATP. It is connected to the 3V, GND and digital pin 36. Since Gameduino 3 shield covers all the power pins of Artemis ATP, we need to solder wires to the secondary rail of plated through-holes as shown below.
+
+![Aetemis ATP with Grove Mech Cap](images/artemis_atp_grove_mechcap.jpeg)
+
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
 
 ## Training
