@@ -19,6 +19,10 @@ In this project, I build a pen device which can be used to recognize handwritten
 Please see the links above for downloading and installation instructions.
 Please see the instructions [here](https://learn.sparkfun.com/tutorials/artemis-development-with-arduino) to setup Artemis ATP board with Arduino IDE.
 
+## Configure Gameduino Library to work with Artemis ATP
+The Gameduino 3 does not work out of the box with Artemis ATP. We need to do few adjustments in the Gameduino library
+Please download Gameduino2.zip from https://github.com/metanav/gd2-lib
+Also, we need to add pin definition for A32, please see the pull request https://github.com/sparkfun/Arduino_Apollo3/pull/129
 
 ## Data Collection
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
