@@ -34,6 +34,10 @@ We need to connect Grove Mech Keycap (mechenical switch) to the Artemis ATP. It 
 
 ![Aetemis ATP with Grove Mech Cap](images/artemis_atp_grove_mechcap.jpeg)
 
+The SparkFun 9DoF IMU Breakout-ICM-20948 (attached to a pen) is connected to the Artemis ATP Qwiic connector using a long 500mm SparkFun Qwiic cable.
+
+![Aetemis ATP with Grove Mech Cap](images/artemis_atp_imu.jpeg)
+
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
 
 ## Training
