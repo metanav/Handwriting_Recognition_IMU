@@ -12,7 +12,7 @@ In this project, I build a pen device which can be used to recognize handwritten
 ## Required Softwares and Libraries
 1. [Arduino IDE 1.8.12](https://www.arduino.cc/en/Main/Software)
 2. [TensorFlow 2.1](https://www.tensorflow.org/install)
-3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary) (A forked of the original library with FIFO implementation)
+3. [SparkFun_ICM-20948_ArduinoLibrary](https://github.com/metanav/SparkFun_ICM-20948_ArduinoLibrary) (A forked repo of the original library with FIFO implementation)
 4. [Jupyter](https://jupyter.org/install)
 5. [Gameduino 3 library](https://excamera.com/sphinx/gameduino2/code.html)
 
@@ -20,9 +20,9 @@ Please see the links above for downloading and installation instructions.
 Please see the instructions [here](https://learn.sparkfun.com/tutorials/artemis-development-with-arduino) to setup Artemis ATP board with Arduino IDE.
 
 ## Configure Gameduino Library to work with Artemis ATP
-The Gameduino 3 does not work out of the box with Artemis ATP. We need to do few adjustments in the Gameduino library
-Please download Gameduino2.zip from https://github.com/metanav/gd2-lib
-Also, we need to add pin definition for A32, please see the pull request https://github.com/sparkfun/Arduino_Apollo3/pull/129
+The Gameduino 3 does not work out of the box with Artemis ATP. We need to do few adjustments in the Gameduino library.
+Please download Gameduino2.zip from https://github.com/metanav/gd2-lib.
+Also, we need to add pin definition for A32, please see the pull request https://github.com/sparkfun/Arduino_Apollo3/pull/129.
 
 ## Data Collection
 Use [data_collection.ino](https://github.com/metanav/Handwriting_Recognition_IMU/tree/master/sketches/data_collection) in the sketches directory to collect data from the IMU sensor.
