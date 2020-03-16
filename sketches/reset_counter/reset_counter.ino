@@ -1,5 +1,11 @@
 #include <EEPROM.h>
 
+/*
+  This sketch resets the counter which is used to count digits during training.
+  Artemis doesn't actually have EEPROM. Instead we are writing to a protected
+  section of flash.
+*/
+
 void setup()
 {
   Serial.begin(115200);
@@ -14,4 +20,5 @@ void setup()
 
 void loop()
 {
+  // Do nothing
 }
