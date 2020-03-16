@@ -1,3 +1,6 @@
+/*
+   This sketch is used for collecting handwritten digits data.
+*/
 #include <EEPROM.h>
 #include <SPI.h>
 #include <SdFat.h>
@@ -8,13 +11,16 @@
 #define TAG_BUTTON_CANCEL 201
 #define AD0_VAL   1
 
+// Global declaration
 ICM_20948_I2C myICM;
 SdFat sd;
 SdFile file;
 
+char filename[50];
+
+// message to be shown on the LCD
 char message1[30];
 char message2[30];
-char filename[50];
 char digit = 48;
 bool cancel = false;
 int  samples = 0;
@@ -22,6 +28,7 @@ int  file_count;
 String buf;
 int examples_count[10] = {0};
 
+// This function is used to get input and update display user interface
 void touchscreen_get_input() {
   GD.get_inputs();
 
